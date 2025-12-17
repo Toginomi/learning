@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Financial Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background-color: #f3f4f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <nav class="bg-blue-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold"><i class="fas fa-wallet mr-2"></i>Finance Tracker</h1>
+            <span class="text-sm bg-blue-800 py-1 px-3 rounded-full">Data: August 2025</span>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-6">
+        
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Current Balances (My Wallet)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md card border-l-4 border-green-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-500 text-sm">Total Liquid Assets</p>
+                        <h3 class="text-3xl font-bold text-gray-800">₱3,745.66</h3>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-full text-green-600">
+                        <i class="fas fa-university fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md card border-l-4 border-blue-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-500 text-sm">Cash on Hand</p>
+                        <h3 class="text-2xl font-bold text-gray-800">₱1,236.00</h3>
+                        <p class="text-xs text-gray-400 mt-1">Physical Cash</p>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                        <i class="fas fa-money-bill-wave fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md card border-l-4 border-blue-400">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-500 text-sm">GCash</p>
+                        <h3 class="text-2xl font-bold text-gray-800">₱2,509.66</h3>
+                        <p class="text-xs text-gray-400 mt-1">Digital Wallet</p>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded-full text-blue-400">
+                        <i class="fas fa-mobile-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <div class="bg-white p-6 rounded-lg shadow-md lg:col-span-2">
+                <h3 class="text-lg font-bold mb-4 border-b pb-2">August 2025 Performance</h3>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="w-full md:w-1/2">
+                        <canvas id="cashFlowChart"></canvas>
+                    </div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-center space-y-4">
+                        <div class="bg-green-50 p-4 rounded border border-green-200">
+                            <span class="text-sm text-gray-500">Total Income (Actual)</span>
+                            <div class="text-2xl font-bold text-green-700">₱21,600.00</div>
+                            <span class="text-xs text-gray-400">Goal: ₱40,000</span>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded border border-red-200">
+                            <span class="text-sm text-gray-500">Total Expenses (Actual)</span>
+                            <div class="text-2xl font-bold text-red-700">₱9,907.06</div>
+                            <span class="text-xs text-gray-400">Goal: ₱39,900</span>
+                        </div>
+                        <div class="bg-indigo-50 p-4 rounded border border-indigo-200">
+                            <span class="text-sm text-gray-500">Net Cash Flow</span>
+                            <div class="text-2xl font-bold text-indigo-700">+₱11,692.94</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold mb-4 border-b pb-2 flex justify-between">
+                    <span>Receivables</span>
+                    <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">"Mga May Utang"</span>
+                </h3>
+                <div class="overflow-y-auto h-64">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-100 text-gray-600">
+                            <tr>
+                                <th class="p-2">Name</th>
+                                <th class="p-2 text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr><td class="p-2">Celix</td><td class="p-2 text-right font-semibold">₱750.00</td></tr>
+                            <tr><td class="p-2">Zoe</td><td class="p-2 text-right font-semibold">₱1,191.00</td></tr>
+                            <tr><td class="p-2">Lilibeth</td><td class="p-2 text-right font-semibold">₱100.00</td></tr>
+                            <tr><td class="p-2">Sarah</td><td class="p-2 text-right font-semibold">₱1,000.00</td></tr>
+                            <tr><td class="p-2">Febb</td><td class="p-2 text-right font-semibold">₱1,750.00</td></tr>
+                        </tbody>
+                        <tfoot class="bg-gray-50 font-bold">
+                            <tr>
+                                <td class="p-2">Total Owed</td>
+                                <td class="p-2 text-right text-indigo-600">₱4,791.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Long Term Goals</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between mb-2">
+                    <h3 class="font-bold text-lg">Emergency Fund</h3>
+                    <span class="text-sm text-gray-500">Target: Aug 2026</span>
+                </div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span>Current: ₱11,692 (Cash Flow)</span> 
+                    <span>Goal: ₱100,000</span>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                    <div class="bg-teal-500 h-4 rounded-full progress-emergency"></div>
+                </div>
+                </div>
+                <p class="text-xs text-gray-500">Goal: 1 Month fund per week stretch goal.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between mb-2">
+                    <h3 class="font-bold text-lg">Project Ebenezer</h3>
+                    <span class="text-sm text-gray-500">Target: April 2026</span>
+                </div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span>Progress</span> 
+                    <span>Goal: ₱300,000</span>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                    <div class="bg-purple-500 h-4 rounded-full progress-ebenezer"></div>
+                </div>
+                </div>
+                <p class="text-xs text-gray-500">Monthly Target: ₱20,000</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Data derived from 'Finance Tracker - Aug 2025.csv'
+        const ctx = document.getElementById('cashFlowChart').getContext('2d');
+        const cashFlowChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Income (Actual)', 'Expenses (Actual)', 'Savings/Net'],
+                datasets: [{
+                    label: 'August 2025',
+                    data: [21600, 9907.06, 11692.94],
+                    backgroundColor: [
+                        'rgba(34, 197, 94, 0.8)', // Green for Income
+                        'rgba(239, 68, 68, 0.8)', // Red for Expenses
+                        'rgba(99, 102, 241, 0.8)' // Indigo for Savings
+                    ],
+                    borderColor: [
+                        'rgba(34, 197, 94, 1)',
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(99, 102, 241, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Cash Flow Distribution'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
